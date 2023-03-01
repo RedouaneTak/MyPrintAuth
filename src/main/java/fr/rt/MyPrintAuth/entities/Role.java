@@ -1,10 +1,12 @@
 package fr.rt.MyPrintAuth.entities;
 
-import jakarta.persistence.*;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import jakarta.persistence.*;
 
 @Builder
 @Data
