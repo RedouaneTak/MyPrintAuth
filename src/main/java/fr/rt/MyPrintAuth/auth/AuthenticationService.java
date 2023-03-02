@@ -49,7 +49,7 @@ public class AuthenticationService {
                 .lastName(request.getLastName())
                 .email(request.getEmail())
                 .password(passwordEncoder.encode(request.getPassword()))
-                .role(new Role(2,"ADMIN"))
+                .role(new Role(3,"ADMIN"))
                 .build();
         repository.save(user);
 
