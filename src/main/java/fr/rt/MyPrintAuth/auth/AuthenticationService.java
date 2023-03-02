@@ -11,6 +11,8 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 @RequiredArgsConstructor
 public class AuthenticationService {
@@ -24,6 +26,11 @@ public class AuthenticationService {
 
 
     public AuthenticationResponse registerUser(RegisterRequest request) {
+
+         Optional<User> userOptional = repository.findUserByEmail(request.getEmail());
+
+         if(userOptional.isPresent())
+             return AuthenticationResponse.builder().build();
 
         var user = User.builder()
                 .firstName(request.getFirstName())
@@ -43,6 +50,11 @@ public class AuthenticationService {
     }
 
     public AuthenticationResponse registerAdmin(RegisterRequest request) {
+
+        Optional<User> userOptional = repository.findUserByEmail(request.getEmail());
+
+        if(userOptional.isPresent())
+            return AuthenticationResponse.builder().build();
 
         var user = User.builder()
                 .firstName(request.getFirstName())
