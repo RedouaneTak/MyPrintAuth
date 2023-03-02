@@ -9,6 +9,5 @@ import java.util.Optional;
 @Repository
 public interface AdresseRepository extends JpaRepository<Adresse,Integer> {
 
-//    @Override
-//    Optional<Adresse> findById(Integer integer);
+
 }
