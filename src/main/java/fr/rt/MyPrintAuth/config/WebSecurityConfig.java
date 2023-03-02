@@ -5,11 +5,14 @@ import lombok.RequiredArgsConstructor;
 import org.apache.catalina.filters.CorsFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.access.hierarchicalroles.RoleHierarchy;
+import org.springframework.security.access.hierarchicalroles.RoleHierarchyImpl;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.access.expression.DefaultWebSecurityExpressionHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.reactive.UrlBasedCorsConfigurationSource;
@@ -24,10 +27,7 @@ public class WebSecurityConfig {
 
     private final JwtAuthenticationFilter  jwtAuthFilter;
     private final AuthenticationProvider authenticationProvider;
-
-
-
-
+    
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -53,9 +53,9 @@ public class WebSecurityConfig {
                 )
                 .permitAll()
                 .requestMatchers("/hello")
-                .hasAuthority("ADMIN")
+                .hasAnyAuthority("ADMIN")
                 .requestMatchers("/test")
-                .hasAuthority("USER")
+                .hasAnyAuthority("USER","ADMIN")
                 .anyRequest()
                 .authenticated()
                 .and()
