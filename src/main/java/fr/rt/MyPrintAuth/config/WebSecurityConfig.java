@@ -54,6 +54,8 @@ public class WebSecurityConfig {
                 .permitAll()
                 .requestMatchers("/hello")
                 .hasAuthority("ADMIN")
+                .requestMatchers("/test")
+                .hasAuthority("USER")
                 .anyRequest()
                 .authenticated()
                 .and()
