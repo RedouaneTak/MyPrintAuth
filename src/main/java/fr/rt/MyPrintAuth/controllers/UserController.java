@@ -1,5 +1,6 @@
 package fr.rt.MyPrintAuth.controllers;
 
+import fr.rt.MyPrintAuth.dto.UserDto;
 import fr.rt.MyPrintAuth.entities.Adresse;
 import fr.rt.MyPrintAuth.entities.User;
 import fr.rt.MyPrintAuth.services.UserService;
@@ -23,17 +24,17 @@ public class UserController {
 
 
     @GetMapping("")
-    public ResponseEntity<List<User>> getUsers(){
+    public ResponseEntity<List<UserDto>> getUsers(){
 
-        return ResponseEntity.ok(userService.getUsers());
+        return ResponseEntity.ok(UserDto.toListUserDto(userService.getUsers()));
 
     }
     @GetMapping("/{id}")
-    public ResponseEntity<Optional<User>> getUserById(@PathParam("id") Integer id){
+    public ResponseEntity<UserDto> getUserById(@PathParam("id") Integer id){
 
         Optional<User> user = userService.getUserById(id);
         if(user.isPresent())
-            return ResponseEntity.ok(user);
+            return ResponseEntity.ok(UserDto.toUserDto(user.get()));
         else
             return ResponseEntity.notFound().build();
     }
