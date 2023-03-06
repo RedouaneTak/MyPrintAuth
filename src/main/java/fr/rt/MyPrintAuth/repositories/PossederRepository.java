@@ -12,6 +12,7 @@ import java.util.List;
 public interface PossederRepository extends JpaRepository<Posseder, PossederPK> {
 
 
+    void deleteByPossederPK_IdUserAndPossederPK_Adresse(Integer idUser,Integer idAdresse);
 
     List<Posseder> findPossedersByPossederPK_IdUser(Integer id);
 }

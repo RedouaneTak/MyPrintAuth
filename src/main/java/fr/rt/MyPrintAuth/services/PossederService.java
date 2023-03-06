@@ -38,4 +38,8 @@ public class PossederService {
         possederRepository.save(posseder);
 
     }
+
+    public void removePossederByPossederPK(Integer idUser,Integer idAdresse){
+        possederRepository.deleteByPossederPK_IdUserAndPossederPK_Adresse(idUser,idAdresse);
+    }
 }
