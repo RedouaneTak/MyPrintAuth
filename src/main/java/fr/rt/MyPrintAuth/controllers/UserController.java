@@ -1,8 +1,9 @@
 package fr.rt.MyPrintAuth.controllers;
 
+import fr.rt.MyPrintAuth.dto.PossederDto;
 import fr.rt.MyPrintAuth.dto.UserDto;
-import fr.rt.MyPrintAuth.entities.Adresse;
 import fr.rt.MyPrintAuth.entities.User;
+import fr.rt.MyPrintAuth.services.PossederService;
 import fr.rt.MyPrintAuth.services.UserService;
 import jakarta.websocket.server.PathParam;
 import org.springframework.http.ResponseEntity;
@@ -17,9 +18,11 @@ public class UserController {
 
 
     private final UserService userService;
+    private final PossederService possederService;
 
-    public UserController(UserService userService) {
+    public UserController(UserService userService, PossederService possederService) {
         this.userService = userService;
+        this.possederService = possederService;
     }
 
 
@@ -37,6 +40,13 @@ public class UserController {
             return ResponseEntity.ok(UserDto.toUserDto(user.get()));
         else
             return ResponseEntity.notFound().build();
+    }
+
+    @GetMapping("/{id}/adresses")
+    public ResponseEntity<List<PossederDto>>getAdressesByIdUser(@PathParam("id")Integer id){
+
+        return ResponseEntity.ok(PossederDto.toListPossederDto(possederService.getAdressesByIdUser(id)));
+
     }
 
 
