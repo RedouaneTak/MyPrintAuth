@@ -33,7 +33,7 @@ public class AdresseController {
         else
             return ResponseEntity.notFound().build();
     }
-    @PostMapping("/")
+    @PostMapping("")
     public ResponseEntity addAdresse(@RequestBody Adresse adresse){
 
 

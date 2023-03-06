@@ -12,9 +12,11 @@ import java.util.Optional;
 public class AdresseService {
 
     private final AdresseRepository adresseRepository;
+    private final PossederService possederService;
 
-    public AdresseService(AdresseRepository adresseRepository) {
+    public AdresseService(AdresseRepository adresseRepository, PossederService possederService) {
         this.adresseRepository = adresseRepository;
+        this.possederService = possederService;
     }
 
     public List<Adresse> getAdresses(){
@@ -34,6 +36,12 @@ public class AdresseService {
         adresseRepository.save(adresse);
     }
 
+    public void addAdresseForUser(Integer idUser,Adresse adresse){
+        adresseRepository.save(adresse);
+        possederService.addPosseder(idUser,adresse);
+
+
+    }
     @Transactional
     public void modifyAdresse(Integer id,Adresse adresse){
 

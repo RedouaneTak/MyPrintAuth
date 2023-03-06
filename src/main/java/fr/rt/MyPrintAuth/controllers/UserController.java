@@ -2,7 +2,9 @@ package fr.rt.MyPrintAuth.controllers;
 
 import fr.rt.MyPrintAuth.dto.PossederDto;
 import fr.rt.MyPrintAuth.dto.UserDto;
+import fr.rt.MyPrintAuth.entities.Adresse;
 import fr.rt.MyPrintAuth.entities.User;
+import fr.rt.MyPrintAuth.services.AdresseService;
 import fr.rt.MyPrintAuth.services.PossederService;
 import fr.rt.MyPrintAuth.services.UserService;
 import jakarta.websocket.server.PathParam;
@@ -20,9 +22,11 @@ public class UserController {
     private final UserService userService;
     private final PossederService possederService;
 
-    public UserController(UserService userService, PossederService possederService) {
+    private final AdresseService adresseService;
+    public UserController(UserService userService, PossederService possederService, AdresseService adresseService) {
         this.userService = userService;
         this.possederService = possederService;
+        this.adresseService = adresseService;
     }
 
 
@@ -42,12 +46,7 @@ public class UserController {
             return ResponseEntity.notFound().build();
     }
 
-    @GetMapping("/{id}/adresses")
-    public ResponseEntity<List<PossederDto>>getAdressesByIdUser(@PathParam("id")Integer id){
 
-        return ResponseEntity.ok(PossederDto.toListPossederDto(possederService.getAdressesByIdUser(id)));
-
-    }
 
 
     @PutMapping("/{id}")
@@ -60,6 +59,25 @@ public class UserController {
         userService.modifyUser(id,firstName,lastName,email,password);
 
         return ResponseEntity.ok().build();
+
+    }
+
+    @GetMapping("/{id}/adresses")
+    public ResponseEntity<List<PossederDto>>getAdressesByIdUser(@PathParam("id")Integer id){
+
+        return ResponseEntity.ok(PossederDto.toListPossederDto(possederService.getAdressesByIdUser(id)));
+
+    }
+
+
+    @PostMapping("/{id}/adresses/add")
+    public ResponseEntity addAdresseForUser(@PathParam("id")Integer id,@RequestBody Adresse adresse){
+
+
+        adresseService.addAdresseForUser(id,adresse);
+        return ResponseEntity.ok().build();
+
+
 
     }
 
