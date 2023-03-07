@@ -1,5 +1,6 @@
 package fr.rt.MyPrintAuth.dto;
 
+import fr.rt.MyPrintAuth.entities.Adresse;
 import fr.rt.MyPrintAuth.entities.Posseder;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -17,12 +18,12 @@ public class PossederDto {
 
     private Integer idUser;
 
-    private Integer idAdresse;
+    private Adresse adresse;
 
 
     public PossederDto(Posseder posseder){
         idUser = posseder.getPossederPK().getIdUser();
-        idAdresse = posseder.getPossederPK().getAdresse().getIdAdresse();
+        adresse = posseder.getPossederPK().getAdresse();
     }
 
     public static List<PossederDto> toListPossederDto(List<Posseder> listPosseder){
@@ -35,4 +36,6 @@ public class PossederDto {
         return listPossederDto;
 
     }
+
+
 }
