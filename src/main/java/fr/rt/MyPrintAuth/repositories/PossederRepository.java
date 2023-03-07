@@ -1,5 +1,6 @@
 package fr.rt.MyPrintAuth.repositories;
 
+import fr.rt.MyPrintAuth.entities.Adresse;
 import fr.rt.MyPrintAuth.entities.Posseder;
 import fr.rt.MyPrintAuth.entities.PossederPK;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -12,7 +13,7 @@ import java.util.List;
 public interface PossederRepository extends JpaRepository<Posseder, PossederPK> {
 
 
-    void deleteByPossederPK_IdUserAndPossederPK_Adresse(Integer idUser,Integer idAdresse);
+    void deleteByPossederPK_IdUserAndPossederPK_Adresse(int possederPK_idUser, Adresse possederPK_adresse);
 
     List<Posseder> findPossedersByPossederPK_IdUser(Integer id);
 }

@@ -35,4 +35,7 @@ public class Adresse {
     @JoinColumn(name = "id_type_adresse")
     private TypeAdresse typeAdresse;
 
+    public Adresse(Integer idAdresse) {
+        this.idAdresse = idAdresse;
+    }
 }
