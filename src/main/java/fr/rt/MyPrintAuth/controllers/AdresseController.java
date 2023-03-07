@@ -49,4 +49,11 @@ public class AdresseController {
         return ResponseEntity.ok().build();
 
     }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity deleteAdresse(@PathParam("id")Integer id){
+
+        adresseService.deleteAdresse(id);
+        return ResponseEntity.ok().build();
+    }
 }
