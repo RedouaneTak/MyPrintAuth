@@ -14,7 +14,6 @@ import java.util.Objects;
 @NoArgsConstructor
 @AllArgsConstructor
 @Embeddable
-
 public class PossederPK implements Serializable {
 
     @Column(name = "id_user")

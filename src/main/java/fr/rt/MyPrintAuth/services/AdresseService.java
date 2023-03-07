@@ -31,11 +31,13 @@ public class AdresseService {
 
     }
 
+    @Transactional
     public void addAdresse(Adresse adresse){
 
         adresseRepository.save(adresse);
     }
 
+    @Transactional
     public void addAdresseForUser(Integer idUser,Adresse adresse){
         adresseRepository.save(adresse);
         possederService.addPosseder(idUser,adresse);

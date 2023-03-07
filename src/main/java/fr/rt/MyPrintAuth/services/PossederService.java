@@ -44,5 +44,6 @@ public class PossederService {
     public void removePossederByPossederPK(Integer idUser,Integer idAdresse){
 
         possederRepository.deleteByPossederPK_IdUserAndPossederPK_Adresse(idUser,new Adresse(idAdresse));
+        adresseRepository.delete(new Adresse(idAdresse));
     }
 }
