@@ -31,6 +31,10 @@ public class UserService {
         return userRepository.findById(id);
     }
 
+    public Optional<User> getUserByEmail(String email){
+        return userRepository.findUserByEmail(email);
+    }
+
     @Transactional
     public void modifyUser(Integer id,String firstName,String lastName,String email,String password){
         

@@ -56,7 +56,7 @@ public class AdresseService {
         oldAdresse.setTypeAdresse(adresse.getTypeAdresse());
 
     }
-    
+
     public void deleteAdresse(Integer idAdresse){
         adresseRepository.delete(new Adresse(idAdresse));
     }
