@@ -49,6 +49,30 @@ public class AuthenticationService {
 
     }
 
+    public AuthenticationResponse registerStaff(RegisterRequest request) {
+
+        Optional<User> userOptional = repository.findUserByEmail(request.getEmail());
+
+        if(userOptional.isPresent())
+            return AuthenticationResponse.builder().build();
+
+        var user = User.builder()
+                .firstName(request.getFirstName())
+                .lastName(request.getLastName())
+                .email(request.getEmail())
+                .password(passwordEncoder.encode(request.getPassword()))
+                .role(new Role(2,"STAFF"))
+                .build();
+        repository.save(user);
+
+
+        var jwtToken = jwtService.generateToken(user);
+        return AuthenticationResponse.builder()
+                .token(jwtToken)
+                .build();
+
+    }
+
     public AuthenticationResponse registerAdmin(RegisterRequest request) {
 
         Optional<User> userOptional = repository.findUserByEmail(request.getEmail());
@@ -90,5 +114,6 @@ public class AuthenticationService {
                 .token(jwtToken)
                 .build();
     }
+
 
 }
