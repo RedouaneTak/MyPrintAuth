@@ -25,6 +25,12 @@ import java.util.Arrays;
 @RequiredArgsConstructor
 public class WebSecurityConfig {
 
+    private static final String[] UNSECURED_URL={};
+    private static final String[] SECURED_URL_ADMIN={};
+    private static final String[] SECURED_URL_STAFF={};
+    private static final String[] SECURED_URL_USER={};
+
+
     private final JwtAuthenticationFilter  jwtAuthFilter;
     private final AuthenticationProvider authenticationProvider;
 
@@ -53,9 +59,9 @@ public class WebSecurityConfig {
                 )
                 .permitAll()
                 .requestMatchers("/hello")
-                .hasAnyAuthority("ADMIN")
+                .hasAnyAuthority("USER","STAFF","ADMIN")
                 .requestMatchers("/test")
-                .hasAnyAuthority("USER","ADMIN")
+                .hasAnyAuthority("ADMIN")
                 .anyRequest()
                 .authenticated()
                 .and()

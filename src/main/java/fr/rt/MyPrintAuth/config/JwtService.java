@@ -34,7 +34,7 @@ public class JwtService {
 
     public String generateToken(Map<String,Object> extraClaims, UserDetails userDetails){
 
-        String scope = userDetails.getAuthorities()
+        String autorities = userDetails.getAuthorities()
                 .stream().map(aut-> aut.getAuthority())
                 .collect(Collectors.joining(" "));
 
@@ -42,7 +42,7 @@ public class JwtService {
                 .builder()
                 .setClaims(extraClaims)
                 .setSubject(userDetails.getUsername())
-                .claim("scope",scope)
+                .claim("authorities",autorities)
                 .setIssuedAt(new Date(System.currentTimeMillis()))
                 .setExpiration(new Date(System.currentTimeMillis()+1000 *60 * 24))
                 .signWith(getSignInKey(), SignatureAlgorithm.HS256)
