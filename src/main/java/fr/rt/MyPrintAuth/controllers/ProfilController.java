@@ -1,6 +1,7 @@
 package fr.rt.MyPrintAuth.controllers;
 
 
+import fr.rt.MyPrintAuth.dto.UserDto;
 import fr.rt.MyPrintAuth.entities.User;
 import fr.rt.MyPrintAuth.services.UserService;
 import org.springframework.http.ResponseEntity;
@@ -24,15 +25,10 @@ public class ProfilController {
 
 
     @GetMapping("")
-    public ResponseEntity<User> getProfil(Principal principal){
+    public ResponseEntity<UserDto> getProfil(Principal principal) {
 
 
-        Optional<User> userOptional = userService.getUserByEmail(principal.getName());
-
-
-
-
-        return ResponseEntity.ok(userOptional.get());
+        return ResponseEntity.ok(userService.getUserByEmail(principal.getName()));
 
 
     }

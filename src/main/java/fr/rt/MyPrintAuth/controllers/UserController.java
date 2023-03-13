@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Stream;
 
 @RestController
 @RequestMapping("/users")
@@ -35,31 +36,24 @@ public class UserController {
     @GetMapping("")
     public ResponseEntity<List<UserDto>> getUsers() {
 
-        return ResponseEntity.ok(UserDto.toListUserDto(userService.getUsers()));
+        return ResponseEntity.ok(userService.getUsers());
 
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<UserDto> getUserById(@PathParam("id") Integer id) {
 
-        Optional<User> user = userService.getUserById(id);
-        if (user.isPresent())
-            return ResponseEntity.ok(UserDto.toUserDto(user.get()));
-        else
-            return ResponseEntity.notFound().build();
+
+        return ResponseEntity.ok(userService.getUserById(id));
     }
 
 
     @PutMapping("/{id}")
-    public ResponseEntity modifyUser(@PathParam("id") Integer id,
-                                     @RequestParam String firstName,
-                                     @RequestParam String lastName,
-                                     @RequestParam String email,
-                                     @RequestParam String password) {
+    public ResponseEntity<UserDto> modifyUser(@PathParam("id")Integer id,@RequestBody UserDto userDto) {
 
-        userService.modifyUser(id, firstName, lastName, email, password);
 
-        return ResponseEntity.ok().build();
+
+        return ResponseEntity.ok(userService.modifyUser(id,userDto));
 
     }
 

@@ -24,34 +24,11 @@ public class UserDto {
 
     private String password;
 
-    private Role role;
-
-    public UserDto(User user){
-        firstName = user.getFirstName();
-        lastName = user.getLastName();
-        email = user.getEmail();
-        password = user.getPassword();
-
-        role = user.getRole();
-
-    }
+    private Integer idRole;
 
 
 
-    public static List<UserDto> toListUserDto(List<User> users){
-        List<UserDto> userDtos = new ArrayList<>();
-        for(User user : users){
-            userDtos.add(new UserDto(user));
-        }
 
-
-        return userDtos;
-
-    }
-
-    public static UserDto toUserDto(User user){
-        return new UserDto(user);
-    }
 
 
 
