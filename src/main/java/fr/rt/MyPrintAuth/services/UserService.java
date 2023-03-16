@@ -1,10 +1,14 @@
 package fr.rt.MyPrintAuth.services;
 
+import fr.rt.MyPrintAuth.advice.ApiErrorResponse;
 import fr.rt.MyPrintAuth.dto.UserDto;
 import fr.rt.MyPrintAuth.entities.User;
+import fr.rt.MyPrintAuth.exception.UserNotFoundException;
 import fr.rt.MyPrintAuth.mapper.UserMapper;
 import fr.rt.MyPrintAuth.repositories.UserRepository;
 import jakarta.transaction.Transactional;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -28,27 +32,26 @@ public class UserService {
     }
 
 
-    public List<UserDto> getUsers(){
+    public List<UserDto> getUsers() {
         return userMapper.toListDto(userRepository.findAll());
     }
 
-    public UserDto getUserById(Integer id){
+    public UserDto getUserById(Integer id) {
+
 
         Optional<User> user = userRepository.findById(id);
 
-        return userMapper.toDto(user.orElseThrow());
+        return userMapper.toDto(user.orElseThrow(() -> new UserNotFoundException("User not found")));
     }
 
-    public UserDto getUserByEmail(String email){
+    public UserDto getUserByEmail(String email) {
         Optional<User> user = userRepository.findUserByEmail(email);
 
         return userMapper.toDto(user.orElseThrow());
     }
 
     @Transactional
-    public UserDto modifyUser(Integer id,UserDto userDto){
-        
-
+    public UserDto modifyUser(Integer id, UserDto userDto) {
 
 
         User oldUser = userRepository.findById(id).orElseThrow();
@@ -61,9 +64,11 @@ public class UserService {
         oldUser.setRole(user.getRole());
 
 
-
-
         return userMapper.toDto(userRepository.save(oldUser));
 
+    }
+
+    public Page<UserDto> findAllWithPageable(Pageable pageable) {
+        return userRepository.findAll(pageable).map(userMapper::toDto);
     }
 }

@@ -9,6 +9,10 @@ import fr.rt.MyPrintAuth.services.AdresseService;
 import fr.rt.MyPrintAuth.services.PossederService;
 import fr.rt.MyPrintAuth.services.UserService;
 import jakarta.websocket.server.PathParam;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -40,10 +44,18 @@ public class UserController {
 
     }
 
+    @GetMapping("/all")
+    public ResponseEntity<Page<UserDto>> getUsersWithPageable(Pageable pageable){
+
+        return ResponseEntity.ok(userService.findAllWithPageable(pageable));
+
+    }
+
     @GetMapping("/{id}")
     public ResponseEntity<UserDto> getUserById(@PathParam("id") Integer id) {
 
 
+        
         return ResponseEntity.ok(userService.getUserById(id));
     }
 
