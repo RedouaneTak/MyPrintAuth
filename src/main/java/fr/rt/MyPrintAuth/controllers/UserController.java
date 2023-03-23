@@ -55,7 +55,7 @@ public class UserController {
     public ResponseEntity<UserDto> getUserById(@PathParam("id") Integer id) {
 
 
-        
+
         return ResponseEntity.ok(userService.getUserById(id));
     }
 
